@@ -1,0 +1,59 @@
+/*prymary colors ligh theme*/
+@theme {
+  --color-primary: #2f80ed;
+  --color-primary-100: #e3ecfd;
+  --color-primary-200: #bdd3fa;
+  --color-primary-300: #8bb5f4;
+  --color-primary-400: #5898ef;
+  --color-primary-500: #2f80ed;
+
+  --color-secondary: #56ccf2;
+  --color-secondary-100: #e4f7fc;
+  --color-secondary-200: #b4e9f8;
+  --color-secondary-300: #82daf3;
+  --color-secondary-400: #56ccf2;
+  --color-secondary-500: #2bbbe8;
+
+  --color-background: #f2f2f2;
+  --color-surface: #ffffff;
+  --color-text: #121212;
+}
+/*prymary colors ligh theme*/
+@theme {
+  --color-primary-d: #2f80ed;
+  --color-primary-d-100: #244c8a;
+  --color-primary-d-200: #1d3e70;
+  --color-primary-d-300: #162f56;
+  --color-primary-d-400: #101f3c;
+  --color-primary-d-500: #0a1021;
+
+  --color-secondary-d: #56ccf2;
+  --color-secondary-d-100: #2faed0;
+  --color-secondary-d-200: #268ba7;
+  --color-secondary-d-300: #1c677e;
+  --color-secondary-d-400: #134355;
+  --color-secondary-d-500: #0a1f2c;
+
+  --color-background-d: #121212;
+  --color-surface-d: #1e1e1e;
+  --color-text-d: #ffffff;
+}
+/*font colors*/
+@theme {
+  --color-black-400: #212121;
+  --color-black-300: #595959;
+  --color-black-200: #8f8f8f;
+  --color-black-100: #c7c7c7;
+  --color-black-50: #f4f4f4;
+}
+/*Warning colors*/
+@theme {
+  --color-warning-green: #5ab52f;
+  --color-warning-green-80: #c3e2be;
+  --color-warning-red: #cd0505;
+  --color-warning-red-80: #ffd9d9;
+  --color-warning-yellow-300: #ffd60e;
+  --color-warning-yellow: #e6b331;
+  --color-warning-yellow-80: #ffd089;
+  --color-warning-yellow-40: #ffe7c3;
+}

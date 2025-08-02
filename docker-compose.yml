@@ -1,0 +1,32 @@
+version: "3.8"
+
+# Define un nombre personalizado para el proyecto.
+# Esto reemplaza el nombre de la carpeta (antwind-reactcapsule).
+name: dockerReactTemplate
+
+services:
+  front:
+    # Define un nombre específico para el contenedor de este servicio.
+    container_name: mi-contenedor-frontend
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+      # Pasa las variables del .env raíz como argumentos al Dockerfile
+      args:
+        - VITE_API_BASE_URL=${API_BASE_URL}
+        - VITE_STORAGE_ENCRYPTION_KEY=${STORAGE_ENCRYPTION_KEY}
+    ports:
+      - "3000:80"  # Mapea el puerto 80 del contenedor al puerto 3000 del host
+    # La sección 'environment' es para variables en tiempo de ejecución.
+    # En este caso, Nginx no las necesita, pero es bueno saber que existe.
+    # El build ya ha incrustado las variables en los archivos JS.
+    # environment:
+    #   - UNA_VARIABLE_EN_RUNTIME=valor
+    restart: always
+
+  #  api:  # Define tu servicio de API aquí (si lo tienes)
+  #    build: ./api
+  #    ports:
+  #      - "8080:8080"
+  #    environment:
+  #      - ...
