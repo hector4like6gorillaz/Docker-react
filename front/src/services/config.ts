@@ -14,31 +14,41 @@ const getSecureToken = async (): Promise<string | null> => {
   }
 }
 
-const createAxiosInstance = async (
-  auth: boolean,
-  contentType = 'application/json'
-) => {
-  const token = auth ? await getSecureToken() : null
-
-  if (auth && !token) window.location.href = mapRoutes.login
-
-  return axios.create({
+const createAxiosInstance = (contentType = 'application/json') => {
+  const instance = axios.create({
     baseURL,
-    headers: {
-      'Content-Type': `${contentType}; charset=utf-8`,
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
+    headers: { 'Content-Type': `${contentType}; charset=utf-8` },
   })
+  return instance
 }
 
-const SERVICE = async () => await createAxiosInstance(false)
+// Instancia para servicios públicos
+const SERVICE = createAxiosInstance()
+const SERVICE_FORMDATA = createAxiosInstance('multipart/form-data')
 
-const AUTHSERVICE = async () => await createAxiosInstance(true)
+// Instancia para servicios que requieren autenticación
+const AUTHSERVICE = createAxiosInstance()
+const AUTHSERVICE_FORMDATA = createAxiosInstance('multipart/form-data')
 
-const AUTHSERVICE_FORMDATA = async () =>
-  await createAxiosInstance(true, 'multipart/form-data')
+// Usamos un interceptor para añadir el token a las peticiones de AUTHSERVICE
+const authServices = [AUTHSERVICE, AUTHSERVICE_FORMDATA]
 
-const SERVICE_FORMDATA = async () =>
-  await createAxiosInstance(false, 'multipart/form-data')
+authServices.forEach((service) => {
+  service.interceptors.request.use(
+    async (config) => {
+      const token = await getSecureToken()
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+      } else {
+        // Si no hay token y la ruta es protegida, redirigir.
+        // Esto es más seguro que hacerlo fuera del interceptor.
+        window.location.href = mapRoutes.login
+        return Promise.reject(new Error('No token found'))
+      }
+      return config
+    },
+    (error) => Promise.reject(error)
+  )
+})
 
 export { SERVICE, AUTHSERVICE, AUTHSERVICE_FORMDATA, SERVICE_FORMDATA }

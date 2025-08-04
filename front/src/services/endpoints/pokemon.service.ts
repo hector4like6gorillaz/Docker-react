@@ -5,8 +5,7 @@ import { mergeMap } from 'rxjs/operators'
 import { SERVICE } from '../config'
 
 export const getPokemonById = async (id?: number): Promise<IPokeInfo> => {
-  const service = await SERVICE()
-  const { data } = await service.get(`/pokemon/${id ?? 150}`)
+  const { data } = await SERVICE.get(`/pokemon/${id ?? 150}`)
   return data
 }
 
@@ -15,8 +14,7 @@ export const getPokemons = async ({
 }: {
   body: { limit: number }
 }): Promise<IPokeInfo[]> => {
-  const service = await SERVICE()
-  const { data } = await service.get(`/pokemon?limit=${body.limit}&offset=0`)
+  const { data } = await SERVICE.get(`/pokemon?limit=${body.limit}&offset=0`)
   return data
 }
 export const postPokemons = async ({
@@ -24,8 +22,7 @@ export const postPokemons = async ({
 }: {
   body: { limit: number }
 }): Promise<IPokeInfo[]> => {
-  const service = await SERVICE()
-  const { data } = await service.post(
+  const { data } = await SERVICE.post(
     `/pokemon?limit=${body.limit}&offset=0`,
     body
   )
