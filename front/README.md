@@ -57,21 +57,40 @@ Esta plantilla está preparada para:
 
 ## 📁 Requisitos de entorno
 
-Antes de iniciar, debes crear un archivo `.env` en la raíz del proyecto con la siguiente variable:
+Este proyecto utiliza los **modos de Vite** para gestionar diferentes configuraciones de entorno. Puedes crear archivos `.env` específicos para cada modo en la raíz de la carpeta `/front`. Vite los cargará automáticamente según el script que ejecutes.
+
+Por ejemplo:
+
+- `.env.local`: Para `yarn dev:local`.
+- `.env.dev`: Para `yarn dev` y `yarn build:dev`.
+- `.env.qa`: Para `yarn dev:qa` y `yarn build:qa`.
+- `.env.prod`: Para `yarn dev:prod` y `yarn build`.
+
+Un archivo `.env.local` podría verse así:
+
 ```env
-VITE_API_BASE_URL=https://pokeapi.co/api/v2/
-VITE_STORAGE_ENCRYPTION_KEY=cambia-la-clave-de-encriptacion
+# /front/.env.local
+VITE_API_BASE_URL=http://localhost:8080/api/v2/
+VITE_STORAGE_ENCRYPTION_KEY=clave-secreta-para-local
 ```
 
 ## 🧪 Scripts disponibles
 
-npm run dev / yarn dev → Inicia el servidor de desarrollo.
+Este boilerplate utiliza modos de Vite para gestionar diferentes configuraciones de entorno. Cada script de dev y build puede apuntar a un archivo .env específico (ej. .env.dev, .env.qa).
 
-npm run build / yarn build → Compila para producción.
+Desarrollo
+Inician un servidor local con Hot-Reload, cada uno cargando su configuración de entorno correspondiente:
 
-npm run preview / yarn preview → Visualiza el build generado localmente.
+npm run dev / yarn dev: Inicia el servidor en modo dev.
+npm run dev:local / yarn dev:local: Inicia el servidor en modo local.
+npm run dev:qa / yarn dev:qa: Inicia el servidor en modo qa.
+npm run dev:prod / yarn dev:prod: Inicia el servidor en modo prod.
+Construcción (Build)
+Compilan la aplicación para producción, optimizando los archivos para el despliegue:
 
-npm run lint / yarn lint → Analiza y corrige problemas de estilo y sintaxis.
+npm run build / yarn build: Compila la aplicación para el entorno de producción (modo prod).
+npm run build:dev / yarn build:dev: Compila la aplicación para el entorno de desarrollo (modo dev).
+npm run build:qa / yarn build:qa: Compila la aplicación para el entorno de QA (modo qa).
 
 ## 📂 Estructura sugerida del proyecto
 
@@ -110,5 +129,16 @@ Es necesaro tener instalado el pluggin de tailwind si usas vs code asi como esta
   },
   "tailwindCSS.colorDecorators": true
 ```
+
+## 🌱 Uso como plantilla (sin Docker)
+Aunque este proyecto está preparado para funcionar con Docker, también puede utilizarse perfectamente como una plantilla base de React sin él.
+Si prefieres no usar Docker, puedes eliminar los siguientes archivos y carpetas del directorio front/ para quedarte con una configuración más ligera:
+
+Dockerfile: Archivo de configuración para construir la imagen Docker.
+nginx/: Carpeta que contiene la configuración del servidor web Nginx para producción.
+Con esos cambios tendrás una base limpia de React lista para iniciar tu propio proyecto, ya sea para desarrollo o producción.
+
+
+---
 
 Creado con ❤️ por Héctor Balan — listo para ser reutilizado y adaptado a cualquier proyecto React 2025.

@@ -18,6 +18,7 @@ RUN yarn install --frozen-lockfile
 # Declara los argumentos que esperamos recibir desde docker-compose.yml
 ARG VITE_API_BASE_URL
 ARG VITE_STORAGE_ENCRYPTION_KEY
+ARG BUILD_SCRIPT=build
 
 # Asigna los argumentos a variables de entorno para que 'yarn build' pueda usarlos
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
@@ -26,8 +27,8 @@ ENV VITE_STORAGE_ENCRYPTION_KEY=$VITE_STORAGE_ENCRYPTION_KEY
 # Copia el resto del código fuente de la aplicación al contenedor
 COPY . .
 
-# Construye la aplicación para producción usando el script de yarn
-RUN yarn build
+# Construye la aplicación usando el script que nos pasen como argumento
+RUN yarn run ${BUILD_SCRIPT}
 
 # Stage 2: Servidor web para producción
 FROM nginx:alpine

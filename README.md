@@ -16,20 +16,20 @@
 ## 📋 Tabla de Contenidos
 
 1.  [**🚀 Cómo Empezar**](#-cómo-empezar)
-    -   [Usar como Plantilla (sin Docker)](#-usar-como-plantilla-sin-docker)
-    -   [Desarrollo Local](#-desarrollo-local)
+    - [Usar como Plantilla (sin Docker)](#-usar-como-plantilla-sin-docker)
+    - [Desarrollo Local](#-desarrollo-local)
 2.  [**📝 Detalles del Proyecto**](#-detalles-del-proyecto)
-    -   [Tecnologías Incluidas](#-tecnologías-incluidas)
-    -   [Estructura Escalable](#-estructura-pensada-para-escalar)
-    -   [Scripts Disponibles](#-scripts-disponibles)
-    -   [Estructura de Carpetas](#-estructura-sugerida-del-proyecto)
-    -   [Testing](#-testing)
-    -   [Configuración de VS Code](#-configuración-de-vs-code)
+    - [Tecnologías Incluidas](#-tecnologías-incluidas)
+    - [Estructura Escalable](#-estructura-pensada-para-escalar)
+    - [Scripts Disponibles](#-scripts-disponibles)
+    - [Estructura de Carpetas](#-estructura-sugerida-del-proyecto)
+    - [Testing](#-testing)
+    - [Configuración de VS Code](#-configuración-de-vs-code)
 3.  [**🐳 Despliegue con Docker**](#-despliegue-con-docker)
-    -   [¿Cuándo usar Docker?](#-cuándo-usar-docker)
-    -   [Configuración](#-configuración)
-    -   [Levantar el Contenedor](#-levantar-el-contenedor)
- 
+    - [¿Cuándo usar Docker?](#-cuándo-usar-docker)
+    - [Configuración](#-configuración)
+    - [Levantar el Contenedor](#-levantar-el-contenedor)
+
 ---
 
 ## 🚀 Cómo Empezar
@@ -40,8 +40,10 @@ Si solo quieres usar el código de React como base para un nuevo proyecto y no n
 
 1.  **Copia la carpeta `front`**: Cópiala a la ubicación que desees y renómbrala con el nombre de tu nuevo proyecto.
 2.  **Inicializa tu propio repositorio**:
-   -   Navega a la nueva carpeta: `cd tu-nuevo-proyecto`.
-   -   Inicializa un nuevo repositorio de Git: `git init`.
+
+- Navega a la nueva carpeta: `cd tu-nuevo-proyecto`.
+- Inicializa un nuevo repositorio de Git: `git init`.
+
 3.  **Limpia los archivos de Docker**: Puedes eliminar de forma segura el archivo `Dockerfile` que se encuentra dentro de la carpeta y el `docker-compose.yml` que estaba en la raíz del boilerplate original.
 4.  **Sigue los pasos de desarrollo local**: Continúa con la sección de abajo para instalar dependencias y arrancar el proyecto.
 
@@ -80,6 +82,7 @@ VITE_STORAGE_ENCRYPTION_KEY=tu-clave-secreta-para-desarrollo
 ---
 
 ## 📝 Detalles del Proyecto
+
 ## 📦 Tecnologías incluidas
 
 Este boilerplate viene configurado con las siguientes librerías y herramientas:
@@ -123,22 +126,40 @@ Esta plantilla está preparada para:
 
 ## 📁 Requisitos de entorno
 
-Antes de iniciar, debes crear un archivo `.env` en la raíz del proyecto con la siguiente variable:
+Este proyecto utiliza los **modos de Vite** para gestionar diferentes configuraciones de entorno. Puedes crear archivos `.env` específicos para cada modo en la raíz de la carpeta `/front`. Vite los cargará automáticamente según el script que ejecutes.
+
+Por ejemplo:
+
+- `.env.local`: Para `yarn dev:local`.
+- `.env.dev`: Para `yarn dev` y `yarn build:dev`.
+- `.env.qa`: Para `yarn dev:qa` y `yarn build:qa`.
+- `.env.prod`: Para `yarn dev:prod` y `yarn build`.
+
+Un archivo `.env.local` podría verse así:
 
 ```env
-VITE_APP_API=https://pokeapi.co/api/v2/
-VITE_APP_LOCAL_SECRET=cambia-la-clave-de-encriptacion
+# /front/.env.local
+VITE_API_BASE_URL=http://localhost:8080/api/v2/
+VITE_STORAGE_ENCRYPTION_KEY=clave-secreta-para-local
 ```
 
 ## 🧪 Scripts disponibles
 
-npm run dev / yarn dev → Inicia el servidor de desarrollo.
+Este boilerplate utiliza modos de Vite para gestionar diferentes configuraciones de entorno. Cada script de dev y build puede apuntar a un archivo .env específico (ej. .env.dev, .env.qa).
 
-npm run build / yarn build → Compila para producción.
+Desarrollo
+Inician un servidor local con Hot-Reload, cada uno cargando su configuración de entorno correspondiente:
 
-npm run preview / yarn preview → Visualiza el build generado localmente.
+npm run dev / yarn dev: Inicia el servidor en modo dev.
+npm run dev:local / yarn dev:local: Inicia el servidor en modo local.
+npm run dev:qa / yarn dev:qa: Inicia el servidor en modo qa.
+npm run dev:prod / yarn dev:prod: Inicia el servidor en modo prod.
+Construcción (Build)
+Compilan la aplicación para producción, optimizando los archivos para el despliegue:
 
-npm run lint / yarn lint → Analiza y corrige problemas de estilo y sintaxis.
+npm run build / yarn build: Compila la aplicación para el entorno de producción (modo prod).
+npm run build:dev / yarn build:dev: Compila la aplicación para el entorno de desarrollo (modo dev).
+npm run build:qa / yarn build:qa: Compila la aplicación para el entorno de QA (modo qa).
 
 ## 📂 Estructura sugerida del proyecto
 
@@ -178,58 +199,108 @@ Es necesaro tener instalado el pluggin de tailwind si usas vs code asi como esta
   "tailwindCSS.colorDecorators": true
 ```
 
+## 🌱 Uso como plantilla (sin Docker)
+Aunque este proyecto está preparado para funcionar con Docker, también puede utilizarse perfectamente como una plantilla base de React sin él.
+Si prefieres no usar Docker, puedes eliminar los siguientes archivos y carpetas del directorio front/ para quedarte con una configuración más ligera:
+
+Dockerfile: Archivo de configuración para construir la imagen Docker.
+nginx/: Carpeta que contiene la configuración del servidor web Nginx para producción.
+Con esos cambios tendrás una base limpia de React lista para iniciar tu propio proyecto, ya sea para desarrollo o producción.
+
+
+---
 
 ## 🐳 Despliegue con Docker
 
-Esta sección explica cómo construir y ejecutar la aplicación de frontend usando Docker.
+Esta sección explica cómo construir y ejecutar la aplicación de frontend usando Docker para diferentes entornos (`prod`, `qa`, `dev`).
 
 ### 🤔 ¿Cuándo usar Docker?
 
-La configuración de Docker está pensada para **crear una imagen de producción** de la aplicación. Es ideal para desplegar el proyecto en un servidor o para probar el build final de forma aislada en tu máquina local.
- 
+La configuración de Docker está pensada para **crear una imagen final** de la aplicación para un entorno específico. Es ideal para:
+- Desplegar el proyecto en un servidor.
+- Probar el build de producción, QA o desarrollo de forma aislada en tu máquina local.
+
 **No se recomienda usar Docker para el desarrollo diario**, ya que el servidor de desarrollo de Vite (`npm run dev`) es mucho más rápido y ofrece recarga en caliente (_Hot Reloading_).
- 
+
 ### ⚙️ Configuración
 
-Antes de levantar el contenedor, necesitas configurar las variables de entorno para producción.
+La configuración de Docker ahora soporta múltiples entornos (`prod`, `qa`, `dev`). Cada entorno se gestiona con su propio archivo de variables, que debe estar en la **raíz del proyecto** (fuera de la carpeta `/front`).
 
-1.  En la **raíz del proyecto** (al mismo nivel que la carpeta `front` y el archivo `docker-compose.yml`), crea un archivo llamado `.env`.
-2.  Añade las siguientes variables a ese archivo. Estas serán inyectadas en la aplicación durante el proceso de build dentro de Docker.
+Dependiendo del entorno que quieras levantar con `make`, necesitarás crear uno o más de los siguientes archivos:
 
+1.  **Para Producción (`.env.prod`)**:
     ```env
-    # Archivo .env en la raíz del proyecto (fuera de /front)
-
-    # Variables para el build de producción en Docker
-    VITE_API_BASE_URL=https://tu-api-de-produccion.com/api/
-
-    # Clave secreta para cifrar los datos en producción
-    VITE_STORAGE_ENCRYPTION_KEY=una-clave-muy-segura-y-diferente-a-la-de-desarrollo
+    # Archivo .env.prod en la raíz del proyecto
+    # Variables para el despliegue en el entorno de PRODUCCIÓN
+    COMPOSE_PROJECT_NAME=mi-proyecto-prod
+    CONTAINER_NAME=mi-proyecto-frontend-prod
+    PORT=3000
+    BUILD_SCRIPT_ARG=build
+    API_BASE_URL=https://pokeapi.co/api/v2/
+    STORAGE_ENCRYPTION_KEY=una-clave-muy-segura-y-diferente-a-la-de-desarrollo
     ```
 
-### 🏃‍♂️ Levantar el Contenedor
+2.  **Para QA (`.env.qa`)**:
+    ```env
+    # Archivo .env.qa en la raíz del proyecto
+    # Variables para el despliegue en el entorno de QA
+    COMPOSE_PROJECT_NAME=mi-proyecto-qa
+    CONTAINER_NAME=mi-proyecto-frontend-qa
+    PORT=3002
+    BUILD_SCRIPT_ARG=build:qa
+    API_BASE_URL=https://pokeapi.co/api/v2/
+    STORAGE_ENCRYPTION_KEY=clave-secreta-para-el-entorno-de-qa
+    ```
+
+3.  **Para Desarrollo (`.env.dev`)**:
+    ```env
+    # Archivo .env.dev en la raíz del proyecto
+    # Variables para el despliegue en el entorno de DESARROLLO
+    COMPOSE_PROJECT_NAME=mi-proyecto-dev
+    CONTAINER_NAME=mi-proyecto-frontend-dev
+    PORT=3001
+    BUILD_SCRIPT_ARG=build:dev
+    API_BASE_URL=https://pokeapi.co/api/v2/
+    STORAGE_ENCRYPTION_KEY=clave-secreta-para-el-servidor-de-desarrollo
+    ```
+
+### 🏃‍♂️ Levantar los Contenedores
+
+Cada entorno se levanta con un comando `make` específico. Esto te permite tener contenedores aislados para `prod`, `qa` y `dev` corriendo simultáneamente si es necesario, cada uno en su propio puerto.
 
 1.  Asegúrate de tener **Docker**, **Docker Compose** y **Make** instalados.
-    -   En macOS y Linux, `make` suele venir preinstalado.
-    -   En Windows, puedes instalarlo usando Chocolatey (`choco install make`) o a través del Subsistema de Windows para Linux (WSL).
-2.  Desde la **raíz del proyecto**, ejecuta el siguiente comando en tu terminal:
+2.  Desde la **raíz del proyecto**, ejecuta el comando correspondiente al entorno que necesites:
 
-    ```bash
-    make up
-    ```
-    Este comando utiliza el `Makefile` del proyecto para ejecutar `docker-compose up --build -d` de forma simplificada.
+    -   **Para Producción:**
+        ```bash
+        make up-prod
+        ```
+        La aplicación estará disponible en `http://localhost:3000`.
 
-3.  Una vez finalizado el proceso, la aplicación de producción estará disponible en `http://localhost:3000`.
+    -   **Para QA:**
+        ```bash
+        make up-qa
+        ```
+        La aplicación estará disponible en `http://localhost:3002`.
 
-#### Otros comandos útiles de Make
+    -   **Para Desarrollo (Servidor):**
+        ```bash
+        make up-dev
+        ```
+        La aplicación estará disponible en `http://localhost:3001`.
 
-El `Makefile` incluye otros atajos para gestionar el entorno de Docker:
+> **Nota**: Si solo necesitas levantar un entorno para probar el build final, se recomienda usar `make up-prod` para mantener la simplicidad.
+
+### Otros comandos útiles de Make
+
+El `Makefile` incluye atajos para gestionar cada entorno de Docker de forma individual. Reemplaza `{env}` con `prod`, `qa` o `dev`.
 
 | Comando | Descripción |
 | :--- | :--- |
-| `make up` | Construye y levanta los contenedores en segundo plano. |
-| `make down` | Detiene y elimina los contenedores. |
-| `make logs` | Muestra los logs de los contenedores en tiempo real. |
-| `make clean` | Realiza una limpieza completa: detiene y elimina contenedores, redes y volúmenes. |
+| `make up-{env}` | Construye y levanta el contenedor del entorno especificado. |
+| `make down-{env}` | Detiene y elimina el contenedor del entorno especificado. |
+| `make logs-{env}` | Muestra los logs del contenedor del entorno especificado en tiempo real. |
+| `make clean` | **¡Cuidado!** Detiene y elimina **todos** los contenedores, redes y volúmenes del proyecto. |
 
 ---
 
