@@ -1,2 +1,5 @@
 # Ignorar el archivo de entorno de Docker Compose
 .env
+.env.dev
+.env.prod
+.env.qa
