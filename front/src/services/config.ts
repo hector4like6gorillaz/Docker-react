@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { secureGetItem } from './localForage/collapse.service'
 import { localForageKeys } from './localForage/keys'
-import { mapRoutes } from 'src/router/mapPath'
 
 export const baseURL: string = import.meta.env.VITE_API_BASE_URL
 
@@ -40,9 +39,6 @@ authServices.forEach((service) => {
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
       } else {
-        // Si no hay token y la ruta es protegida, redirigir.
-        // Esto es más seguro que hacerlo fuera del interceptor.
-        window.location.href = mapRoutes.login
         return Promise.reject(new Error('No token found'))
       }
       return config
