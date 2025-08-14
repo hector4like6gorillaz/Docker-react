@@ -70,7 +70,7 @@ Un archivo `.env.local` podría verse así:
 
 ```env
 # /front/.env.local
-VITE_API_BASE_URL=http://localhost:8080/api/v2/
+VITE_API_BASE_URL=https://pokeapi.co/api/v2/
 VITE_STORAGE_ENCRYPTION_KEY=clave-secreta-para-local
 ```
 
