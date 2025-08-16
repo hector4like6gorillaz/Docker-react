@@ -1,9 +1,12 @@
-import HelmetCustom from 'src/components/helmet/HelmetCustom'
+import { Helmet } from 'react-helmet-async'
+import { tabTitles } from 'src/router/mapPath'
 
 const CarsModule = () => {
   return (
     <div>
-      <HelmetCustom titleTab="Autos" />
+      <Helmet>
+        <title>{tabTitles.cars} </title>
+      </Helmet>
       CarsModule
     </div>
   )

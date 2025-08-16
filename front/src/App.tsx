@@ -3,6 +3,7 @@ import viteLogo from '/vite.svg'
 
 import usePokemons from './hooks/usePokemons'
 import { capitalFirstLetter } from './utils/words-utilities'
+import { Helmet } from 'react-helmet-async'
 
 function App() {
   const {
@@ -16,6 +17,9 @@ function App() {
 
   return (
     <div className="flex flex-col items-center p-[2rem]  bg-primary-300  tablet:bg-amber-200 desktop:bg-warning-green ultrawide:bg-warning-orange">
+      <Helmet>
+        <title>Pokeapi</title>
+      </Helmet>
       <div className="w-[50%] border-2  border-amber-300 flex gap-2 items-center justify-between px-[2rem]">
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="w-[4rem] h-[4rem]" alt="Vite logo" />

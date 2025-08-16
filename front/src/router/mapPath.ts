@@ -8,3 +8,14 @@ export const mapRoutes = {
   condominiums: '/condominiums',
   cars: '/cars',
 }
+
+export const tabTitles = {
+  landing: 'Home',
+  expired: 'Expired Session',
+  closedSession: 'Session Closed',
+  login: 'Login',
+  dashboard: 'Dashboard',
+  users: 'Users',
+  condominiums: 'Condominiums',
+  cars: 'Cars',
+}

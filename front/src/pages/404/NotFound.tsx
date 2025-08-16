@@ -1,10 +1,14 @@
 import { Button } from 'antd'
 import SVG from '../../assets/404.svg'
 import { mapRoutes } from 'src/router/mapPath'
+import { Helmet } from 'react-helmet-async'
 
 const NotFoundPage = () => {
   return (
     <div className="h-screen w-full flex flex-col items-center justify-center">
+      <Helmet>
+        <title>404</title>
+      </Helmet>
       <img src={SVG} alt="Imagen de error" className="h-64" />
       <div className="text-center flex flex-col gap-4">
         <h2 className="text-6xl">404</h2>

@@ -1,9 +1,11 @@
-import HelmetCustom from 'src/components/helmet/HelmetCustom'
+import { Helmet } from 'react-helmet-async'
 
 const LoginModule = () => {
   return (
     <div className="w-full  ">
-      <HelmetCustom titleTab="Login" />
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
       soy un login
     </div>
   )

@@ -1,9 +1,12 @@
-import HelmetCustom from 'src/components/helmet/HelmetCustom'
+import { Helmet } from 'react-helmet-async'
+import { tabTitles } from 'src/router/mapPath'
 
 const DasboardModule = () => {
   return (
     <div>
-      <HelmetCustom titleTab="Dashboard" />
+      <Helmet>
+        <title>{tabTitles.dashboard} </title>
+      </Helmet>
       <div className="h-[500rem]">Dashboard</div>
     </div>
   )

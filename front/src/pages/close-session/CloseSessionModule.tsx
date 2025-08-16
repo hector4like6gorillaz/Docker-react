@@ -1,7 +1,8 @@
 import { Spin } from 'antd'
+import { Helmet } from 'react-helmet-async'
 import { PiCoffee } from 'react-icons/pi'
 import useCommonFunctions from 'src/hooks/useCommonFunctions'
-import { mapRoutes } from 'src/router/mapPath'
+import { mapRoutes, tabTitles } from 'src/router/mapPath'
 
 const CloseSessionModule = () => {
   const {} = useCommonFunctions({
@@ -11,6 +12,9 @@ const CloseSessionModule = () => {
 
   return (
     <div className="fixed w-full h-full bg-gradient-primary z-50 flex flex-col items-center justify-center">
+      <Helmet>
+        <title>{tabTitles.closedSession} </title>
+      </Helmet>
       <PiCoffee className="w-[70%] tablet:w-[60%] desktop:w-[20rem] ultrawide:w-[20rem] h-auto" />
 
       <Spin spinning />

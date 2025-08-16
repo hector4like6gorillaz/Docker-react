@@ -1,9 +1,11 @@
-import HelmetCustom from 'src/components/helmet/HelmetCustom'
+import { Helmet } from 'react-helmet-async'
 
 const UsersModule = () => {
   return (
     <div>
-      <HelmetCustom titleTab="Usuarios" />
+      <Helmet>
+        <title>Users</title>
+      </Helmet>
       UsersModule
     </div>
   )
