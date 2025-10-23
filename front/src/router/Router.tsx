@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import NormalRoute from './NormalRoute'
-
 import PrivateRoute from './PrivateRoute'
 import LoginModule from 'src/pages/login/LoginModule'
 import MainLayout from 'src/HOCs/MainLayout'
@@ -8,13 +7,12 @@ import DasboardModule from 'src/pages/dashboard/DasboardModule'
 import UsersModule from 'src/pages/users/UsersModule'
 import CondominiumsModule from 'src/pages/condominiums/CondominiumsModule'
 import CarsModule from 'src/pages/cars/CarsModule'
-
 import { mapRoutes } from './mapPath'
-import App from 'src/App'
 import ExpiredSesionModule from 'src/pages/expired-sesion/ExpiredSesionModule'
 import NotFoundPage from 'src/pages/404/NotFound'
 import SplashInit from 'src/components/splash-init/SplashInit'
 import CloseSessionModule from 'src/pages/close-session/CloseSessionModule'
+import PokemonModule from 'src/pages/pokemon/PokemonModule'
 
 const Router = () => {
   return (
@@ -30,7 +28,7 @@ const Router = () => {
         <Route element={<SplashInit />}>
           <Route element={<NormalRoute />}>
             <Route path={mapRoutes.login} element={<LoginModule />} />
-            <Route path={mapRoutes.landing} element={<App />} />
+            <Route path={mapRoutes.landing} element={<PokemonModule />} />
           </Route>
 
           <Route element={<PrivateRoute />}>

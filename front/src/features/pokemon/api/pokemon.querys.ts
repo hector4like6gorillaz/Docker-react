@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import { QueryKeys } from '../keys'
 
 import type { AxiosError } from 'axios'
 import type { CustomError } from 'src/interfaces/errors.interface'
-import type { IPokeInfo } from 'src/interfaces/pokemon.interface'
-import { getPokemonById } from '../endpoints/pokemon.service'
+
+import { QueryKeys } from 'src/services/keys'
+import { getPokemonById } from './pokemon.service'
+import type { IPokeInfo } from '../pokemon.interface'
 
 export const usePokemonById = (id?: number) => {
   return useQuery<

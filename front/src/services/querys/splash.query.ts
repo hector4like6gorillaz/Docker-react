@@ -1,7 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import type { AxiosError } from 'axios'
+import {
+  fakeGetMeRxFail,
+  GetMeFakeSuccess,
+} from 'src/features/pokemon/api/pokemon.service'
 import type { CustomError } from 'src/interfaces/errors.interface'
-import { fakeGetMeRxFail, GetMeFakeSuccess } from '../endpoints/pokemon.service'
 
 interface IFakeGetMe {
   success: true

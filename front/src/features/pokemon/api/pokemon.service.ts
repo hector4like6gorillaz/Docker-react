@@ -1,8 +1,7 @@
-import type { IPokeInfo } from 'src/interfaces/pokemon.interface'
-
 import { firstValueFrom, timer, map, throwError } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
-import { SERVICE } from '../config'
+import { SERVICE } from 'src/services/config'
+import type { IPokeInfo } from '../pokemon.interface'
 
 export const getPokemonById = async (id?: number): Promise<IPokeInfo> => {
   const { data } = await SERVICE.get(`/pokemon/${id ?? 150}`)

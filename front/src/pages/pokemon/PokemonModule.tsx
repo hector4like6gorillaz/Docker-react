@@ -1,19 +1,13 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-
-import usePokemons from './hooks/usePokemons'
-import { capitalFirstLetter } from './utils/words-utilities'
+import { capitalFirstLetter } from 'src/utils/words-utilities'
+import reactLogo from 'src/assets/react.svg'
+import viteLogo from 'src/assets/vite.svg'
 import { Helmet } from 'react-helmet-async'
+import usePokemons from 'src/features/pokemon/hooks/usePokemons'
+import PokeListaComponent from 'src/features/pokemon/components/PokeListaComponent'
 
-function App() {
-  const {
-    value,
-    count,
-    data,
-    dataPokelista,
-    handleClickButton,
-    handleGetPokeList,
-  } = usePokemons()
+const PokemonModule = () => {
+  const { value, data, state, handleClickButton, handleGetPokeList } =
+    usePokemons()
 
   return (
     <div className="flex flex-col items-center p-[2rem]  bg-primary-300  tablet:bg-amber-200 desktop:bg-warning-green ultrawide:bg-warning-orange">
@@ -44,31 +38,28 @@ function App() {
         Vite + React, {capitalFirstLetter(data?.name ?? '')}{' '}
       </h1>
       <div className="flex p-7 gap-2 items-center justify-center">
-        <button onClick={handleClickButton} style={{ all: 'revert' }}>
-          count is {count},{value}
+        <button
+          onClick={handleClickButton}
+          disabled={state.loading}
+          style={{ all: 'revert' }}
+        >
+          count is {state.count},{value}
         </button>
-        <button onClick={handleGetPokeList} style={{ all: 'revert' }}>
+        <button
+          onClick={handleGetPokeList}
+          disabled={state.loading}
+          style={{ all: 'revert' }}
+        >
           obtener pokelista kanto
         </button>
       </div>
-      {dataPokelista !== null && (
-        <div className="">
-          {dataPokelista.results.map(
-            (item: { name: string }, index: number) => {
-              return (
-                <div key={index}>
-                  <p>{capitalFirstLetter(item.name)} </p>
-                </div>
-              )
-            }
-          )}
-        </div>
-      )}
+      <PokeListaComponent dataPokelista={state.dataPokelista} />
       <p className="read-the-docs">
         Click on the Vite, React and pokemon logos to learn more
       </p>
+
     </div>
   )
 }
 
-export default App
+export default PokemonModule

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import { getPokemons, postPokemons } from '../endpoints/pokemon.service'
+import { getPokemons, postPokemons } from './pokemon.service'
 
 export const useGetPaginatedPokemons = () => {
   return useMutation({
